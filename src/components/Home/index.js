@@ -1,52 +1,81 @@
-import React, {useState} from "react";
-import {Wrapper} from "./styles.js";
+import React, { useState } from "react";
+import { Wrapper } from "./styles.js";
+import { states } from "./constants.js";
 
 export default function Home() {
-const [cityName, setCityName] = useState("");
-const [stateCode, setStateCode] = useState("");
-const [defaultUnits, setDefaultUnits] = useState("imperial")
-const states = ["Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"]
-const [forecastData, setForecastData] = useState({});
+  const [cityName, setCityName] = useState("");
+  const [stateCode, setStateCode] = useState("");
+  const [defaultUnits, setDefaultUnits] = useState("imperial");
+  const [hasSearched, setHasSearched] = useState(false);
+  const forecastData = [];
 
-
-    const fetchCoords = () => {       
-        fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${cityName},${stateCode},US&limit=5&appid=3629692cef6e7a55af67ced0043c6264`)
-            .then(res => {
-                return res.json()})
-            .then(data => {
-                return ({lat: data[0].lat, lon: data[0].lon})})
-            .then(data => {
-                fetch(`http://api.openweathermap.org/data/2.5/forecast?lat=${data.lat}&lon=${data.lon}&appid=3629692cef6e7a55af67ced0043c6264&units=${defaultUnits}`)
-                .then(res => {
-                    return res.json()})
-                .then(forecast => {
-                    setForecastData(forecast);
-                    console.log(forecastData)
-                })
-                .catch(err => console.log(err))
-            .catch(err => console.log(err));
-            });       
+  const createForecast = async () => {
+    try {
+      console.log("fetching coords");
+      const coords = await fetch(
+        `http://api.openweathermap.org/geo/1.0/direct?q=${cityName},${stateCode},US&limit=5&appid=3629692cef6e7a55af67ced0043c6264`
+      );
+      const processedCoords = await coords.json();
+      console.log("fetched coords");
+      const lat = processedCoords[0].lat;
+      const lon = processedCoords[0].lon;
+      const forecast = await fetch(
+        `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=3629692cef6e7a55af67ced0043c6264&units=${defaultUnits}`
+      );
+      console.log("fetching forecast");
+      const processedForecast = await forecast.json();
+      forecastData.push(processedForecast["list"][0]["main"].temp);
+      setHasSearched(true);
+      console.log(forecastData);
+      console.log("forecast fetched");
+    } catch (err) {
+      console.log(err);
     }
+  };
 
-    return(
+  return (
     <Wrapper>
-        <div className="forecast-page">
-        <input type="text" placeholder="city" onChange={(e) => setCityName(e.target.value)} />
-        <select placeholder="state" onChange={(e) => setStateCode(e.target.value)}>
-            <option value="">State</option>
-            {states.map((state) => {
-                return (
-                    <option key={state} value={state}>{state}</option>
-                )
-            })}
+      <div className="forecast-page">
+        <input
+          type="text"
+          placeholder="city"
+          onChange={(e) => setCityName(e.target.value)}
+        />
+        <select
+          placeholder="state"
+          onChange={(e) => setStateCode(e.target.value)}
+        >
+          <option value="">State</option>
+          {states.map((state) => {
+            return (
+              <option key={state} value={state}>
+                {state}
+              </option>
+            );
+          })}
         </select>
-            <input type="radio" id="imperial" name="units" value="imperial" defaultChecked="true" onClick={(e) => setDefaultUnits("imperial")} />
-            <label for="imperial">Imperial</label>
-            <input type="radio" id="metric" name="units" value="metric" onClick={(e) => setDefaultUnits("metric")}/>
-            <label for="metric">Metric</label>
-        <button type="button" onClick={fetchCoords}>Search</button>
-            <div></div>
-        </div>
+        <input
+          type="radio"
+          id="imperial"
+          name="units"
+          value="imperial"
+          defaultChecked="true"
+          onClick={(e) => setDefaultUnits("imperial")}
+        />
+        <label htmlFor="imperial">Imperial</label>
+        <input
+          type="radio"
+          id="metric"
+          name="units"
+          value="metric"
+          onClick={(e) => setDefaultUnits("metric")}
+        />
+        <label htmlFor="metric">Metric</label>
+        <button type="button" onClick={createForecast}>
+          Search
+        </button>
+        <div>{hasSearched ? forecastData.toString() : "No Search"}</div>
+      </div>
     </Wrapper>
-    );
+  );
 }
