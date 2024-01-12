@@ -1,7 +1,15 @@
 import React from "react";
+import { Wrapper } from "./styles.js";
 
 export default function Header() {
-    return(
-        <div>stuff</div>
-    )
+  return (
+    <Wrapper>
+      <div className="main-div">
+        <div className="nav-item">WeatherSpout</div>
+        <div className="nav-item">Home</div>
+        <div className="nav-item">Forecast</div>
+        <div className="nav-item">Contact</div>
+      </div>
+    </Wrapper>
+  );
 }
