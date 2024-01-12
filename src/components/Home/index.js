@@ -7,7 +7,7 @@ export default function Home() {
   const [stateCode, setStateCode] = useState("");
   const [defaultUnits, setDefaultUnits] = useState("imperial");
   const [hasSearched, setHasSearched] = useState(false);
-  const forecastData = [];
+  const [forecast, setForecast] = useState("No Search");
 
   const createForecast = async () => {
     try {
@@ -24,9 +24,10 @@ export default function Home() {
       );
       console.log("fetching forecast");
       const processedForecast = await forecast.json();
-      forecastData.push(processedForecast["list"][0]["main"].temp);
+      //forecastData.push(processedForecast["list"][0]["main"].temp);
       setHasSearched(true);
-      console.log(forecastData);
+      console.log(processedForecast);
+      setForecast(processedForecast["list"][0]["main"].temp);
       console.log("forecast fetched");
     } catch (err) {
       console.log(err);
@@ -74,7 +75,7 @@ export default function Home() {
         <button type="button" onClick={createForecast}>
           Search
         </button>
-        <div>{hasSearched ? forecastData.toString() : "No Search"}</div>
+        <div>{forecast}</div>
       </div>
     </Wrapper>
   );
