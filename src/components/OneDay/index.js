@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Wrapper } from "./styles.js";
 
 export default function OneDay(props) {
-  const [weather, setWeather] = useState([]);
   const [temp, setTemp] = useState("No Search");
 
   const callWeather = async () => {

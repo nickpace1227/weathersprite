@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Wrapper } from "./styles.js";
 import { usStates } from "./constants.js";
 import OneDay from "../OneDay";
+import ThreeDay from "../ThreeDay";
 
 export default function Home() {
   const [cityName, setCityName] = useState("");
@@ -24,15 +25,6 @@ export default function Home() {
       console.log("fetched coords");
       setLat(processedCoords[0].lat);
       setLon(processedCoords[0].lon);
-
-      // const forecast = await fetch(
-      //   `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=3629692cef6e7a55af67ced0043c6264&units=${defaultUnits}`
-      // );
-      // console.log("fetching forecast");
-      // const processedForecast = await forecast.json();
-      // console.log(processedForecast);
-      // setForecast(processedForecast);
-      // console.log("forecast fetched");
     } catch (err) {
       setError(true);
       console.log(err);
@@ -66,7 +58,13 @@ export default function Home() {
           <option value="imperial">Imperial</option>
           <option value="metric">Metric</option>
         </select>
-        <select onChange={(e) => setForecastLength(e.target.value)}>
+        <select
+          onChange={(e) => {
+            setLat("");
+            setLon("");
+            setForecastLength(e.target.value);
+          }}
+        >
           <option value="oneDay">1 Day</option>
           <option value="threeDay">3 Day</option>
           <option value="fiveDay">5 Day</option>
@@ -79,6 +77,10 @@ export default function Home() {
 
         {forecastLength === "oneDay" && (
           <OneDay units={units} lat={lat} lon={lon} forecast={forecast} />
+        )}
+
+        {forecastLength === "threeDay" && (
+          <ThreeDay units={units} lat={lat} lon={lon} forecast={forecast} />
         )}
 
         <div></div>
