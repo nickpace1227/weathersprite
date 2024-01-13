@@ -23,7 +23,6 @@ export default function ThreeDay(props) {
         const processedForecast = await forecast.json();
         console.log("Forecast Processed!");
         setHasFetched(true);
-        console.log(forecast);
         setDays([
           {
             currentTemp: processedForecast["list"][7]["main"].temp,
@@ -51,8 +50,23 @@ export default function ThreeDay(props) {
             humidity: processedForecast["list"][23]["main"].humidity,
             key: 3,
           },
+          {
+            currentTemp: processedForecast["list"][31]["main"].temp,
+            feelsLike: processedForecast["list"][31]["main"].feels_like,
+            highTemp: processedForecast["list"][31]["main"].temp_max,
+            lowTemp: processedForecast["list"][31]["main"].temp_min,
+            humidity: processedForecast["list"][31]["main"].humidity,
+            key: 4,
+          },
+          {
+            currentTemp: processedForecast["list"][39]["main"].temp,
+            feelsLike: processedForecast["list"][39]["main"].feels_like,
+            highTemp: processedForecast["list"][39]["main"].temp_max,
+            lowTemp: processedForecast["list"][39]["main"].temp_min,
+            humidity: processedForecast["list"][39]["main"].humidity,
+            key: 5,
+          },
         ]);
-        console.log(days);
         console.log(processedForecast);
       } catch (err) {
         console.log(err);
@@ -71,24 +85,26 @@ export default function ThreeDay(props) {
           <div>Today's Forecast</div>
           {days.map((day) => {
             return (
-              <div key={day.key}>
-                <div>
-                  Temp: {day.currentTemp}
-                  {units}
+              <div className="weather-day">
+                <div key={day.key}>
+                  <div>
+                    Temp: {day.currentTemp}
+                    {units}
+                  </div>
+                  <div>
+                    Feels Like: {day.feelsLike}
+                    {units}
+                  </div>
+                  <div>
+                    High: {day.highTemp}
+                    {units}
+                  </div>
+                  <div>
+                    Low: {day.lowTemp}
+                    {units}
+                  </div>
+                  <div>Humidity: {day.humidity}%</div>
                 </div>
-                <div>
-                  Feels Like: {day.feelsLike}
-                  {units}
-                </div>
-                <div>
-                  High: {day.highTemp}
-                  {units}
-                </div>
-                <div>
-                  Low: {day.lowTemp}
-                  {units}
-                </div>
-                <div>Humidity: {day.humidity}%</div>
               </div>
             );
           })}
