@@ -71,7 +71,7 @@ export default function ThreeDay(props) {
           <div>Today's Forecast</div>
           {days.map((day) => {
             return (
-              <div key={day.key}>
+              <div key={day.key} className="weather-day">
                 <div>
                   Temp: {day.currentTemp}
                   {units}

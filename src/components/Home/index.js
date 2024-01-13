@@ -6,7 +6,7 @@ import ThreeDay from "../ThreeDay";
 import FiveDay from "../FiveDay";
 
 export default function Home() {
-  const [cityName, setCityName] = useState("");
+  const [cityName, setCityName] = useState("_placeholder");
   const [stateCode, setStateCode] = useState("");
   const [units, setUnits] = useState("imperial");
   const [lat, setLat] = useState("");
@@ -15,6 +15,9 @@ export default function Home() {
   const [forecastLength, setForecastLength] = useState("oneDay");
 
   const createForecast = async () => {
+    if (cityName === "_placeholder" || cityName === "") {
+      return;
+    }
     if (cityName !== "") {
       try {
         console.log("fetching coords");
@@ -39,6 +42,7 @@ export default function Home() {
 
       <div className="forecast-page">
         <input
+          className={cityName ? "valid-input" : "invalid-input"}
           type="text"
           placeholder="city"
           onChange={(e) => setCityName(e.target.value)}
