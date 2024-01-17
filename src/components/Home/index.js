@@ -44,7 +44,7 @@ export default function Home() {
         <input
           className={cityName ? "valid-input" : "invalid-input"}
           type="text"
-          placeholder="city"
+          placeholder="City"
           onChange={(e) => setCityName(e.target.value)}
         />
         <select

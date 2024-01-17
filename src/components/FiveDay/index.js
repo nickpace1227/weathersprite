@@ -32,7 +32,6 @@ export default function ThreeDay(props) {
             humidity: processedForecast["list"][7]["main"].humidity,
             key: 1,
           },
-
           {
             currentTemp: processedForecast["list"][15]["main"].temp,
             feelsLike: processedForecast["list"][15]["main"].feels_like,
@@ -41,7 +40,6 @@ export default function ThreeDay(props) {
             humidity: processedForecast["list"][15]["main"].humidity,
             key: 2,
           },
-
           {
             currentTemp: processedForecast["list"][23]["main"].temp,
             feelsLike: processedForecast["list"][23]["main"].feels_like,
@@ -110,7 +108,7 @@ export default function ThreeDay(props) {
           })}
         </div>
       ) : (
-        !hasFetched && <div>Do a Search</div>
+        <div>Do a Search</div>
       )}
     </Wrapper>
   );
