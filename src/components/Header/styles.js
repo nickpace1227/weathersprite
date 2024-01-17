@@ -6,9 +6,17 @@ export const Wrapper = styled.div`
 
   .main-div {
     display: flex;
+    align-items: center;
   }
 
   .nav-item {
     margin: 5px;
+    font-size: 20px;
+  }
+
+  .site-title {
+    font-family: "LemonRegular";
+    margin: 5px;
+    font-size: 30px;
   }
 `;

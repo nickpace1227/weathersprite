@@ -66,27 +66,27 @@ export default function ThreeDay(props) {
     <Wrapper>
       {hasFetched ? (
         <div>
-          <div>Today's Forecast</div>
+          <div>Three Day Forecast</div>
           {days.map((day) => {
             return (
-              <div key={day.key} className="weather-day">
-                <div>
-                  Temp: {day.currentTemp}
-                  {units}
+              <div key={day.key} className="forecast-card">
+                <div className="forecast-header">Placeholder Forecast</div>
+                <div className="forecast-value">
+                  Temp: {Math.floor(day.currentTemp)} {units}
                 </div>
-                <div>
-                  Feels Like: {day.feelsLike}
-                  {units}
+                <div className="forecast-value">
+                  Feels Like: {Math.floor(day.feelsLike)} {units}
                 </div>
-                <div>
-                  High: {day.highTemp}
-                  {units}
+                <div className="forecast-value">
+                  High: {Math.floor(day.highTemp)} {units}
                 </div>
-                <div>
-                  Low: {day.lowTemp}
-                  {units}
+
+                <div className="forecast-value">
+                  Low: {Math.floor(day.lowTemp)} {units}
                 </div>
-                <div>Humidity: {day.humidity}%</div>
+                <div className="forecast-value">
+                  Humidity: {Math.floor(day.humidity)}%
+                </div>
               </div>
             );
           })}

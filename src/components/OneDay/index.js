@@ -8,10 +8,18 @@ export default function OneDay(props) {
   const [lowTemp, setLowTemp] = useState("");
   const [humidity, setHumidity] = useState("");
   const [hasFetched, setHasFetched] = useState(false);
+  const [units, setUnits] = useState("");
   const forecast = [];
 
   const callWeather = async () => {
     if (props.lat !== "" && props.lon !== "" && hasFetched === false) {
+      if (props.units === "imperial") {
+        setUnits("F");
+      }
+
+      if (props.units === "metric") {
+        setUnits("C");
+      }
       try {
         const weather = await fetch(`
           https://api.openweathermap.org/data/2.5/weather?lat=${props.lat}&lon=${props.lon}&appid=3629692cef6e7a55af67ced0043c6264&units=${props.units}`);
@@ -37,13 +45,27 @@ export default function OneDay(props) {
   return (
     <Wrapper>
       {hasFetched ? (
-        <div>
-          <div>Today's Forecast</div>
-          <div>Current Temp: {currentTemp}</div>
-          <div>Feels Like: {feelsLike}</div>
-          <div>Today's High: {highTemp}</div>
-          <div>Today's Low: {lowTemp}</div>
-          <div>Humidity: {humidity}</div>
+        <div className="forecast-card">
+          <div className="forecast-header">Today's Forecast</div>
+          <div className="forecast-value">
+            Current Temp: {currentTemp} {units}
+          </div>
+          <div className="forecast-value">
+            Feels Like: {feelsLike} {units}
+          </div>
+          <div className="forecast-value">
+            Today's High: {highTemp} {units}
+          </div>
+
+          <div className="forecast-value">
+            Today's High: {highTemp} {units}
+          </div>
+
+          <div className="forecast-value">
+            Today's Low: {lowTemp} {units}
+          </div>
+
+          <div className="forecast-value">Humidity: {humidity}%</div>
         </div>
       ) : (
         <div>Do a Search</div>
