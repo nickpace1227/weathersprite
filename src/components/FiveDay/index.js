@@ -78,35 +78,39 @@ export default function ThreeDay(props) {
 
   return (
     <Wrapper>
-      {hasFetched ? (
-        <div>
-          <div>Five Day Forecast</div>
-          {days.map((day) => {
-            return (
-              <div key={day.key} className="forecast-card">
-                <div className="forecast-header">Placeholder Day</div>
-                <div className="forecast-value">
-                  Temp: {Math.floor(day.currentTemp)}&deg;{units}
-                </div>
-                <div className="forecast-value">
-                  Feels Like: {Math.floor(day.feelsLike)}&deg;{units}
-                </div>
-                <div className="forecast-value">
-                  High: {Math.floor(day.highTemp)}&deg;{units}
-                </div>
-                <div className="forecast-value">
-                  Low: {Math.floor(day.lowTemp)}&deg;{units}
-                </div>
-                <div className="forecast-value">
-                  Humidity: {Math.floor(day.humidity)}%
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      ) : (
-        <div>Do a Search</div>
-      )}
+      <div>
+        {hasFetched ? (
+          <div className="forecast-layout">
+            <div className="forecast-selection">Three Day Forecast</div>
+            <div className="forecast-days">
+              {days.map((day) => {
+                return (
+                  <div key={day.key} className="forecast-card">
+                    <div className="forecast-header">Placeholder Forecast</div>
+                    <div className="forecast-value">
+                      Temp: {Math.floor(day.currentTemp)}&deg;{units}
+                    </div>
+                    <div className="forecast-value">
+                      Feels Like: {Math.floor(day.feelsLike)}&deg;{units}
+                    </div>
+                    <div className="forecast-value">
+                      High: {Math.floor(day.highTemp)}&deg;{units}
+                    </div>
+                    <div className="forecast-value">
+                      Low: {Math.floor(day.lowTemp)}&deg;{units}
+                    </div>
+                    <div className="forecast-value">
+                      Humidity: {Math.floor(day.humidity)}%
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        ) : (
+          <div>Do a Search</div>
+        )}
+      </div>
     </Wrapper>
   );
 }

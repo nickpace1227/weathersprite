@@ -41,43 +41,54 @@ export default function Home() {
       {/* Begin Search */}
 
       <div className="forecast-page">
-        <input
-          className={cityName ? "valid-input" : "invalid-input"}
-          type="text"
-          placeholder="City"
-          onChange={(e) => setCityName(e.target.value)}
-        />
-        <select
-          placeholder="state"
-          onChange={(e) => setStateCode(e.target.value)}
-        >
-          <option value="">State</option>
-          {usStates.map((state) => {
-            return (
-              <option key={state} value={state}>
-                {state}
-              </option>
-            );
-          })}
-        </select>
-        <select
-          onChange={(e) => {
-            setLat("");
-            setLon("");
-            setForecastLength(e.target.value);
-          }}
-        >
-          <option value="oneDay">1 Day</option>
-          <option value="threeDay">3 Day</option>
-          <option value="fiveDay">5 Day</option>
-        </select>
-        <select onChange={(e) => setUnits(e.target.value)}>
-          <option value="imperial">Imperial</option>
-          <option value="metric">Metric</option>
-        </select>
-        <button type="button" onClick={createForecast}>
-          Search
-        </button>
+        <div className="forecast-search">
+          <input
+            className={cityName ? "valid-input" : "invalid-input"}
+            type="text"
+            placeholder="City"
+            onChange={(e) => setCityName(e.target.value)}
+          />
+          <select
+            className="valid-input"
+            placeholder="state"
+            onChange={(e) => setStateCode(e.target.value)}
+          >
+            <option value="">State</option>
+            {usStates.map((state) => {
+              return (
+                <option key={state} value={state}>
+                  {state}
+                </option>
+              );
+            })}
+          </select>
+          <select
+            className="valid-input"
+            onChange={(e) => {
+              setLat("");
+              setLon("");
+              setForecastLength(e.target.value);
+            }}
+          >
+            <option value="oneDay">1 Day</option>
+            <option value="threeDay">3 Day</option>
+            <option value="fiveDay">5 Day</option>
+          </select>
+          <select
+            className="valid-input"
+            onChange={(e) => setUnits(e.target.value)}
+          >
+            <option value="imperial">Imperial</option>
+            <option value="metric">Metric</option>
+          </select>
+          <button
+            className="valid-input"
+            type="button"
+            onClick={createForecast}
+          >
+            Search
+          </button>
+        </div>
 
         {/* End Search */}
 
