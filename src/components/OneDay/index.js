@@ -12,7 +12,7 @@ export default function OneDay(props) {
   const forecast = [];
 
   const callWeather = async () => {
-    if (props.lat !== "" && props.lon !== "" && hasFetched === false) {
+    if (props.lat !== "" && props.lon !== "") {
       if (props.units === "imperial") {
         setUnits("F");
       }
@@ -40,7 +40,7 @@ export default function OneDay(props) {
 
   useEffect(() => {
     callWeather();
-  });
+  }, [props.lat, props.lon]);
 
   return (
     <Wrapper>

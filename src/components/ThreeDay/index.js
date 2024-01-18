@@ -7,7 +7,7 @@ export default function ThreeDay(props) {
   const [days, setDays] = useState([]);
 
   const callForecast = async () => {
-    if (props.lat !== "" && props.lon !== "" && hasFetched === false) {
+    if (props.lat !== "" && props.lon !== "") {
       if (props.units === "imperial") {
         setUnits("F");
       }
@@ -58,7 +58,7 @@ export default function ThreeDay(props) {
 
   useEffect(() => {
     callForecast();
-  });
+  }, [props.lon, props.lat]);
 
   return (
     <Wrapper>
