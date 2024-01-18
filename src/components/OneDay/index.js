@@ -48,21 +48,21 @@ export default function OneDay(props) {
         <div className="forecast-card">
           <div className="forecast-header">Today's Forecast</div>
           <div className="forecast-value">
-            Current Temp: {currentTemp} {units}
+            Current Temp: {currentTemp}&deg;{units}
           </div>
           <div className="forecast-value">
-            Feels Like: {feelsLike} {units}
+            Feels Like: {feelsLike}&deg;{units}
           </div>
           <div className="forecast-value">
-            Today's High: {highTemp} {units}
-          </div>
-
-          <div className="forecast-value">
-            Today's High: {highTemp} {units}
+            Today's High: {highTemp}&deg;{units}
           </div>
 
           <div className="forecast-value">
-            Today's Low: {lowTemp} {units}
+            Today's High: {highTemp}&deg;{units}
+          </div>
+
+          <div className="forecast-value">
+            Today's Low: {lowTemp}&deg;{units}
           </div>
 
           <div className="forecast-value">Humidity: {humidity}%</div>
@@ -73,5 +73,3 @@ export default function OneDay(props) {
     </Wrapper>
   );
 }
-
-//processedForecast["list"][0]["main"].temp

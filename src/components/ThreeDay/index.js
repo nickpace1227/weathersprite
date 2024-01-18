@@ -23,7 +23,6 @@ export default function ThreeDay(props) {
         const processedForecast = await forecast.json();
         console.log("Forecast Processed!");
         setHasFetched(true);
-        console.log(forecast);
         setDays([
           {
             currentTemp: processedForecast["list"][7]["main"].temp,
@@ -50,7 +49,6 @@ export default function ThreeDay(props) {
             key: 3,
           },
         ]);
-        console.log(days);
         console.log(processedForecast);
       } catch (err) {
         console.log(err);
@@ -72,17 +70,17 @@ export default function ThreeDay(props) {
               <div key={day.key} className="forecast-card">
                 <div className="forecast-header">Placeholder Forecast</div>
                 <div className="forecast-value">
-                  Temp: {Math.floor(day.currentTemp)} {units}
+                  Temp: {Math.floor(day.currentTemp)}&deg;{units}
                 </div>
                 <div className="forecast-value">
-                  Feels Like: {Math.floor(day.feelsLike)} {units}
+                  Feels Like: {Math.floor(day.feelsLike)}&deg;{units}
                 </div>
                 <div className="forecast-value">
-                  High: {Math.floor(day.highTemp)} {units}
+                  High: {Math.floor(day.highTemp)}&deg;{units}
                 </div>
 
                 <div className="forecast-value">
-                  Low: {Math.floor(day.lowTemp)} {units}
+                  Low: {Math.floor(day.lowTemp)}&deg;{units}
                 </div>
                 <div className="forecast-value">
                   Humidity: {Math.floor(day.humidity)}%
