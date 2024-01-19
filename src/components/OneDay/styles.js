@@ -17,6 +17,7 @@ export const Wrapper = styled.div`
   }
 
   .forecast-header {
+    text-align: center;
     font-size: 20px;
     font-weight: bold;
     text-decoration: underline;
