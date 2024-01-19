@@ -21,6 +21,10 @@ export default function ThreeDay(props) {
           `http://api.openweathermap.org/data/2.5/forecast?lat=${props.lat}&lon=${props.lon}&appid=3629692cef6e7a55af67ced0043c6264&units=${props.units}`
         );
         const processedForecast = await forecast.json();
+        // replace ^^ with
+        // const processedForecast = await fetch(
+        //   `http://api.openweathermap.org/data/2.5/forecast?lat=${props.lat}&lon=${props.lon}&appid=3629692cef6e7a55af67ced0043c6264&units=${props.units}`
+        // ).then(async (response) => await response.json());
         console.log("Forecast Processed!");
         setHasFetched(true);
         const arrayOfDays = [
@@ -32,8 +36,25 @@ export default function ThreeDay(props) {
           "Friday",
           "Saturday",
         ];
+        // replace below with this:
+        // const fiveDayForecast = ["7", "15", "23", "31", "39"].map(
+        //   (timestamp) => {
+        //     const day = new Date(processedForecast["list"][timestamp].dt_txt);
+        //     const dayOfWeek = day.getDay();
+        //     return {
+        //       currentTemp: processedForecast["list"][timestamp]["main"].temp,
+        //       feelsLike:
+        //         processedForecast["list"][timestamp]["main"].feels_like,
+        //       highTemp: processedForecast["list"][timestamp]["main"].temp_max,
+        //       lowTemp: processedForecast["list"][timestamp]["main"].temp_min,
+        //       humidity: processedForecast["list"][timestamp]["main"].humidity,
+        //       day: arrayOfDays[dayOfWeek],
+        //       key: timestamp,
+        //     };
+        //   }
+        // );
         const fiveDayForecast = [];
-        const forecastArray = ["7", "15", "23", "31", "39"].map((timestamp) => {
+        ["7", "15", "23", "31", "39"].forEach((timestamp) => {
           const day = new Date(processedForecast["list"][timestamp].dt_txt);
           const dayOfWeek = day.getDay();
           fiveDayForecast.push({
@@ -57,11 +78,14 @@ export default function ThreeDay(props) {
 
   useEffect(() => {
     callForecast();
+    // you have to add callForecast to the dependency array
   }, [props.lat, props.lon]);
 
   return (
     <Wrapper>
+      {/* dead div */}
       <div>
+        {/*  dont need the has Fetched because it is defaulted to oneDay */}
         {hasFetched ? (
           <div className="forecast-layout">
             <div className="forecast-length">

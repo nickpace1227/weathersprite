@@ -16,9 +16,11 @@ export default function OneDay(props) {
         setUnits("C");
       }
       try {
-        const weather = await fetch(`
-          https://api.openweathermap.org/data/2.5/weather?lat=${props.lat}&lon=${props.lon}&appid=3629692cef6e7a55af67ced0043c6264&units=${props.units}`);
-        const processedWeather = await weather.json();
+        const processedWeather = await fetch(`
+          https://api.openweathermap.org/data/2.5/weather?lat=${props.lat}&lon=${props.lon}&appid=3629692cef6e7a55af67ced0043c6264&units=${props.units}`).then(
+          async (response) => await response.json()
+        );
+
         console.log(processedWeather);
 
         setForecast({
