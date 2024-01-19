@@ -59,7 +59,12 @@ export default function OneDay(props) {
           <div className="forecast-value">Humidity: {forecast.humidity}%</div>
         </div>
       ) : (
-        <div>Do a Search</div>
+        <div className="blank-search">
+          <div>Get Searchin!</div>
+          <div>
+            Fill out the form above and see the local forecast for your city!
+          </div>
+        </div>
       )}
     </Wrapper>
   );

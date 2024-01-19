@@ -23,32 +23,31 @@ export default function ThreeDay(props) {
         const processedForecast = await forecast.json();
         console.log("Forecast Processed!");
         setHasFetched(true);
-        setDays([
-          {
-            currentTemp: processedForecast["list"][7]["main"].temp,
-            feelsLike: processedForecast["list"][7]["main"].feels_like,
-            highTemp: processedForecast["list"][7]["main"].temp_max,
-            lowTemp: processedForecast["list"][7]["main"].temp_min,
-            humidity: processedForecast["list"][7]["main"].humidity,
-            key: 1,
-          },
-          {
-            currentTemp: processedForecast["list"][15]["main"].temp,
-            feelsLike: processedForecast["list"][15]["main"].feels_like,
-            highTemp: processedForecast["list"][15]["main"].temp_max,
-            lowTemp: processedForecast["list"][15]["main"].temp_min,
-            humidity: processedForecast["list"][15]["main"].humidity,
-            key: 2,
-          },
-          {
-            currentTemp: processedForecast["list"][23]["main"].temp,
-            feelsLike: processedForecast["list"][23]["main"].feels_like,
-            highTemp: processedForecast["list"][23]["main"].temp_max,
-            lowTemp: processedForecast["list"][23]["main"].temp_min,
-            humidity: processedForecast["list"][23]["main"].humidity,
-            key: 3,
-          },
-        ]);
+        const arrayOfDays = [
+          "Sunday",
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+        ];
+        const threeDayForecast = [];
+        const forecastArray = ["7", "15", "23"].map((timestamp) => {
+          const day = new Date(processedForecast["list"][timestamp].dt_txt);
+          const dayOfWeek = day.getDay();
+          threeDayForecast.push({
+            currentTemp: processedForecast["list"][timestamp]["main"].temp,
+            feelsLike: processedForecast["list"][timestamp]["main"].feels_like,
+            highTemp: processedForecast["list"][timestamp]["main"].temp_max,
+            lowTemp: processedForecast["list"][timestamp]["main"].temp_min,
+            humidity: processedForecast["list"][timestamp]["main"].humidity,
+            day: arrayOfDays[dayOfWeek],
+            key: timestamp,
+          });
+        });
+
+        setDays(threeDayForecast);
         console.log(processedForecast);
       } catch (err) {
         console.log(err);
@@ -65,12 +64,14 @@ export default function ThreeDay(props) {
       <div>
         {hasFetched ? (
           <div className="forecast-layout">
-            <div className="forecast-selection">Three Day Forecast</div>
+            <div className="forecast-length">
+              <div className="forecast-selection">Three Day Forecast</div>
+            </div>
             <div className="forecast-days">
               {days.map((day) => {
                 return (
                   <div key={day.key} className="forecast-card">
-                    <div className="forecast-header">Placeholder Forecast</div>
+                    <div className="forecast-header">{day.day}</div>
                     <div className="forecast-value">
                       Temp: {Math.floor(day.currentTemp)}&deg;{units}
                     </div>
@@ -92,7 +93,12 @@ export default function ThreeDay(props) {
             </div>
           </div>
         ) : (
-          <div>Do a Search</div>
+          <div className="blank-search">
+            <div>Get Searchin!</div>
+            <div>
+              Fill out the form above and see the local forecast for your city!
+            </div>
+          </div>
         )}
       </div>
     </Wrapper>

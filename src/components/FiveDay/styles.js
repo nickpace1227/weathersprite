@@ -2,12 +2,19 @@ import styled from "styled-components";
 
 export const Wrapper = styled.div`
   @media (min-width: 1200px) {
-    height: 100vh;
+    height: auto;
 
     .forecast-selection {
+      margin-top: 20px;
+      border: solid 5px black;
+      padding: 10px;
+      border-radius: 10px;
+      background-color: grey;
+    }
+
+    .forecast-length {
       display: flex;
       justify-content: center;
-      margin-top: 20px;
     }
 
     .forecast-days {
@@ -21,6 +28,7 @@ export const Wrapper = styled.div`
       border-radius: 10px;
       padding: 20px;
       margin: 20px;
+      background-color: grey;
     }
 
     .forecast-header {
@@ -36,18 +44,33 @@ export const Wrapper = styled.div`
       align-items: center;
       margin: 5px;
     }
+
+    .blank-search {
+      text-align: center;
+      padding: 20px;
+      margin: 20px;
+      border-radius: 15px;
+      background-color: grey;
+    }
   }
 
   @media (max-width: 1200px) {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100vh;
+    height: auto;
 
     .forecast-selection {
+      margin-top: 20px;
+      border: solid 5px black;
+      padding: 10px;
+      border-radius: 10px;
+      background-color: grey;
+    }
+
+    .forecast-length {
       display: flex;
       justify-content: center;
-      margin-top: 20px;
     }
 
     .forecast-card {
@@ -57,6 +80,7 @@ export const Wrapper = styled.div`
       border-radius: 10px;
       padding: 20px;
       margin: 20px;
+      background-color: grey;
     }
 
     .forecast-header {
@@ -70,6 +94,14 @@ export const Wrapper = styled.div`
       flex-direction: column;
       align-items: center;
       margin: 5px;
+    }
+
+    .blank-search {
+      text-align: center;
+      padding: 20px;
+      margin: 20px;
+      border-radius: 15px;
+      background-color: grey;
     }
   }
 `;

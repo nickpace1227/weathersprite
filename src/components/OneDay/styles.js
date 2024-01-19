@@ -13,6 +13,7 @@ export const Wrapper = styled.div`
     border-radius: 10px;
     padding: 20px;
     margin-top: 50px;
+    background-color: grey;
   }
 
   .forecast-header {
@@ -26,5 +27,13 @@ export const Wrapper = styled.div`
     flex-direction: column;
     align-items: center;
     margin: 5px;
+  }
+
+  .blank-search {
+    text-align: center;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 15px;
+    background-color: grey;
   }
 `;

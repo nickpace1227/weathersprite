@@ -13,6 +13,7 @@ export default function Home() {
   const [lon, setLon] = useState("");
   const [error, setError] = useState(false);
   const [forecastLength, setForecastLength] = useState("oneDay");
+  const [hasSearched, setHasSearched] = useState();
 
   const createForecast = async () => {
     if (cityName === "_placeholder" || cityName === "") {
@@ -84,7 +85,10 @@ export default function Home() {
           <button
             className="valid-input"
             type="button"
-            onClick={createForecast}
+            onClick={(e) => {
+              setHasSearched(true);
+              createForecast(e);
+            }}
           >
             Search
           </button>
