@@ -46,9 +46,6 @@ export default function Home() {
       const [forecast, weather] = await Promise.all(apiCalls);
       console.log("fetched weather data");
 
-      console.log(weather);
-      console.log(forecast);
-
       const currentForecast = {
         currentTemp: Math.floor(weather["main"].temp),
         feelsLike: Math.floor(weather["main"].feels_like),
@@ -59,6 +56,11 @@ export default function Home() {
 
       const twelveHourForecast = ["0", "1", "2", "3"].map((timestamp) => {
         const arrayOfTimes = [
+          "7 PM",
+          "8 PM",
+          "9 PM",
+          "10 PM",
+          "11 PM",
           "12 AM",
           "1 AM",
           "2 AM",
@@ -78,11 +80,6 @@ export default function Home() {
           "4 PM",
           "5 PM",
           "6 PM",
-          "7 PM",
-          "8 PM",
-          "9 PM",
-          "10 PM",
-          "11 PM",
         ];
         const timeInfo = new Date(forecast["list"][timestamp].dt_txt);
         const timeOfDay = timeInfo.getHours();
@@ -130,71 +127,64 @@ export default function Home() {
     <Wrapper>
       {/* Begin Search */}
 
-      {/* forecast page can be deleted and attach the styles to wrapper instead */}
-      <div className="forecast-page">
-        <div className="forecast-search">
-          <input
-            // className= `input ${cityName ? "" : "invalid"}`
-            // .input {
-            //   css goes here
-            //   &.invalid {
-            //     invalid css goes here
-            //   }
-            // }
-            className={cityName ? "valid-input" : "invalid-input"}
-            type="text"
-            placeholder="City"
-            onChange={(e) => setCityName(e.target.value)}
-          />
-          <select
-            // change to just input
-            className="valid-input"
-            placeholder="state"
-            onChange={(e) => setStateCode(e.target.value)}
-          >
-            <option value="">State</option>
-            {usStates.map((state) => {
-              return (
-                <option key={state} value={state}>
-                  {state}
-                </option>
-              );
-            })}
-          </select>
-          <select
-            // change to just input
-            className="valid-input"
-            onChange={(e) => setUnits(e.target.value)}
-          >
-            <option value="imperial">Imperial</option>
-            <option value="metric">Metric</option>
-          </select>
-          <button
-            // change to just input
-            className="valid-input"
-            type="button"
-            onClick={(e) => {
-              createForecast(e);
-            }}
-          >
-            Search
-          </button>
+      <div className="search">
+        <input
+          // className= `input ${cityName ? "" : "invalid"}`
+          // .input {
+          //   css goes here
+          //   &.invalid {
+          //     invalid css goes here
+          //   }
+          // }
+          className="input"
+          type="text"
+          placeholder="City"
+          onChange={(e) => setCityName(e.target.value)}
+        />
+        <select
+          className="input"
+          placeholder="state"
+          onChange={(e) => setStateCode(e.target.value)}
+        >
+          <option value="">State</option>
+          {usStates.map((state) => {
+            return (
+              <option key={state} value={state}>
+                {state}
+              </option>
+            );
+          })}
+        </select>
+        <select className="input" onChange={(e) => setUnits(e.target.value)}>
+          <option value="imperial">Imperial</option>
+          <option value="metric">Metric</option>
+        </select>
+        <button
+          className="input"
+          type="button"
+          onClick={(e) => {
+            createForecast(e);
+          }}
+        >
+          Search
+        </button>
+      </div>
+
+      {/* End Search */}
+
+      {error ? (
+        <div className="error-div">
+          <div>Something went wrong.</div>
+          <div>Try searching again.</div>
         </div>
-
-        {/* End Search */}
-
-        {error ? (
-          <div>
-            <div>Something Went Wrong</div>
-            <div>Try searching again.</div>
-          </div>
-        ) : (
-          <div className="forecast-layout">
-            {hasSearched ? (
-              <div>
-                {/* Current Forecast */}
-                <div className="forecast-card">
-                  <div className="forecast-header">Current Forecast</div>
+      ) : (
+        <div>
+          {hasSearched ? (
+            <div className="forecast">
+              {/* Current Forecast */}
+              <div className="current-forecast">
+                <div className="forecast-title">Current Forecast</div>
+                <div className="forecast-item">
                   <div className="forecast-value">
                     Current Temp: {currentForecast.currentTemp}&deg;
                     {units === "imperial" ? "F" : "C"}
@@ -207,29 +197,35 @@ export default function Home() {
                     Humidity: {currentForecast.humidity}%
                   </div>
                 </div>
+              </div>
 
-                {/* Twelve Hour Forecast */}
-                <div>Next Twelve Hours</div>
-                {twelveHourForecast.map((day) => {
-                  return (
-                    <div key={day.key}>
-                      <div>{day.time}</div>
-                      <div>
-                        {Math.floor(day.temp)}&deg;
-                        {units === "imperial" ? "F" : "C"}
+              {/* Twelve Hour Forecast */}
+
+              <div className="twelve-hour-forecast">
+                <div className="forecast-title">Twelve Hour Forecast</div>
+                <div className="forecast-container">
+                  {twelveHourForecast.map((day) => {
+                    return (
+                      <div className="forecast-item" key={day.key}>
+                        <div>{day.time}</div>
+                        <div>
+                          Temp: {Math.floor(day.temp)}&deg;
+                          {units === "imperial" ? "F" : "C"}
+                        </div>
                       </div>
-                      <div>conditions at time</div>
-                    </div>
-                  );
-                })}
+                    );
+                  })}
+                </div>
+              </div>
 
-                {/* Five Day Forecast */}
-                <div className="forecast-days">
-                  <div className="forecast-selection">Five Day Forecast</div>
+              {/* Five Day Forecast */}
+              <div className="five-day-forecast">
+                <div className="forecast-title">Five Day Forecast</div>
+                <div className="forecast-container">
                   {fiveDayForecast.map((day) => {
                     return (
-                      <div key={day.key} className="forecast-card">
-                        <div className="forecast-header">{day.day}</div>
+                      <div className="forecast-item" key={day.key}>
+                        <div className="forecast-value">{day.day}</div>
                         <div className="forecast-value">
                           Temp: {Math.floor(day.currentTemp)}&deg;
                           {units === "imperial" ? "F" : "C"}
@@ -254,12 +250,12 @@ export default function Home() {
                   })}
                 </div>
               </div>
-            ) : (
-              <div>get searchin!</div>
-            )}
-          </div>
-        )}
-      </div>
+            </div>
+          ) : (
+            <div>get searchin!</div>
+          )}
+        </div>
+      )}
     </Wrapper>
   );
 }
