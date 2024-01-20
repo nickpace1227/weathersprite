@@ -17,7 +17,7 @@ https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=3629
 };
 
 export default function Home() {
-  const [cityName, setCityName] = useState(null);
+  const [cityName, setCityName] = useState("_placeholder");
   const [stateCode, setStateCode] = useState("");
   const [units, setUnits] = useState("imperial");
   const [error, setError] = useState(false);
@@ -82,6 +82,7 @@ export default function Home() {
           "6 PM",
         ];
         const timeInfo = new Date(forecast["list"][timestamp].dt_txt);
+        console.log(timeInfo);
         const timeOfDay = timeInfo.getHours();
         return {
           temp: forecast["list"][timestamp]["main"].temp,
@@ -117,6 +118,7 @@ export default function Home() {
       setCurrentForecast(currentForecast);
       setTwelveHourForecast(twelveHourForecast);
       setFiveDayForecast(fiveDayForecast);
+      console.log(forecast);
     } catch (err) {
       setError(true);
       console.log(err);
@@ -129,14 +131,7 @@ export default function Home() {
 
       <div className="search">
         <input
-          // className= `input ${cityName ? "" : "invalid"}`
-          // .input {
-          //   css goes here
-          //   &.invalid {
-          //     invalid css goes here
-          //   }
-          // }
-          className="input"
+          className={`input ${cityName ? "" : "invalid"}`}
           type="text"
           placeholder="City"
           onChange={(e) => setCityName(e.target.value)}
@@ -252,7 +247,13 @@ export default function Home() {
               </div>
             </div>
           ) : (
-            <div>get searchin!</div>
+            <div className="landing-container">
+              <div className="landing-message">Welcome to WeatherSpout!</div>
+              <div>
+                Fill out the above form and see what your local weather looks
+                like in seconds!
+              </div>
+            </div>
           )}
         </div>
       )}

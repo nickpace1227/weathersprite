@@ -10,6 +10,9 @@ export const Wrapper = styled.div`
     border-radius: 10px;
     padding: 5px;
   }
+  .invalid {
+    border: 4px solid red;
+  }
   .error-div {
     margin: 20px;
     width: 200px;
@@ -74,6 +77,16 @@ export const Wrapper = styled.div`
       border: 4px solid black;
       background-color: grey;
     }
+    .landing-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 25px;
+      border: 4px solid black;
+      padding: 10px;
+      border-radius: 10px;
+      background-color: grey;
+    }
   }
 
   @media (max-width: 1200px) {
@@ -108,6 +121,17 @@ export const Wrapper = styled.div`
       padding: 10px;
       border-radius: 10px;
       border: 4px solid black;
+      background-color: grey;
+      width: 200px;
+    }
+    .landing-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 25px;
+      border: 4px solid black;
+      padding: 10px;
+      border-radius: 10px;
       background-color: grey;
       width: 200px;
     }
