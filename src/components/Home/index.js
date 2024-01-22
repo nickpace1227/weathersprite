@@ -56,11 +56,6 @@ export default function Home() {
 
       const twelveHourForecast = ["0", "1", "2", "3"].map((timestamp) => {
         const arrayOfTimes = [
-          "7 PM",
-          "8 PM",
-          "9 PM",
-          "10 PM",
-          "11 PM",
           "12 AM",
           "1 AM",
           "2 AM",
@@ -80,13 +75,22 @@ export default function Home() {
           "4 PM",
           "5 PM",
           "6 PM",
+          "7 PM",
+          "8 PM",
+          "9 PM",
+          "10 PM",
+          "11 PM",
         ];
         const timeInfo = new Date(forecast["list"][timestamp].dt_txt);
-        console.log(timeInfo);
+        const offsetTime = timeInfo.getTimezoneOffset() / 60;
         const timeOfDay = timeInfo.getHours();
+        let localTime = timeOfDay - offsetTime;
+        if (localTime < 0) {
+          localTime = 24 + localTime;
+        }
         return {
           temp: forecast["list"][timestamp]["main"].temp,
-          time: arrayOfTimes[timeOfDay],
+          time: arrayOfTimes[localTime],
           key: timestamp,
         };
       });
