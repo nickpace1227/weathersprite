@@ -47,50 +47,20 @@ export default function Home() {
       console.log("fetched weather data");
 
       const currentForecast = {
-        currentTemp: Math.floor(weather["main"].temp),
-        feelsLike: Math.floor(weather["main"].feels_like),
-        highTemp: Math.floor(weather["main"].temp_max),
-        lowTemp: Math.floor(weather["main"].temp_min),
-        humidity: Math.floor(weather["main"].humidity),
+        currentTemp: Math.floor(weather.main.temp),
+        feelsLike: Math.floor(weather.main.feels_like),
+        highTemp: Math.floor(weather.main.temp_max),
+        lowTemp: Math.floor(weather.main.temp_min),
+        humidity: Math.floor(weather.main.humidity),
       };
 
       const twelveHourForecast = ["0", "1", "2", "3"].map((timestamp) => {
-        const arrayOfTimes = [
-          "12 AM",
-          "1 AM",
-          "2 AM",
-          "3 AM",
-          "4 AM",
-          "5 AM",
-          "6 AM",
-          "7 AM",
-          "8 AM",
-          "9 AM",
-          "10 AM",
-          "11 AM",
-          "12 PM",
-          "1 PM",
-          "2 PM",
-          "3 PM",
-          "4 PM",
-          "5 PM",
-          "6 PM",
-          "7 PM",
-          "8 PM",
-          "9 PM",
-          "10 PM",
-          "11 PM",
-        ];
-        const timeInfo = new Date(forecast["list"][timestamp].dt_txt);
-        const offsetTime = timeInfo.getTimezoneOffset() / 60;
-        const timeOfDay = timeInfo.getHours();
-        let localTime = timeOfDay - offsetTime;
-        if (localTime < 0) {
-          localTime = 24 + localTime;
-        }
+        const timeInfo = new Date(forecast.list[timestamp].dt_txt + " UTC");
+        const hourOfDay = timeInfo.getHours();
         return {
-          temp: forecast["list"][timestamp]["main"].temp,
-          time: arrayOfTimes[localTime],
+          temp: forecast.list[timestamp].main.temp,
+          time: (hourOfDay % 12 || 12) + (hourOfDay < 12 ? " AM" : " PM"),
+          conditions: forecast.list[timestamp].weather.main,
           key: timestamp,
         };
       });
@@ -105,15 +75,16 @@ export default function Home() {
           "Friday",
           "Saturday",
         ];
-        const dateInfo = new Date(forecast["list"][timestamp].dt_txt);
+        const dateInfo = new Date(forecast.list[timestamp].dt_txt);
         const dayOfWeek = dateInfo.getDay();
         return {
-          currentTemp: forecast["list"][timestamp]["main"].temp,
-          feelsLike: forecast["list"][timestamp]["main"].feels_like,
-          highTemp: forecast["list"][timestamp]["main"].temp_max,
-          lowTemp: forecast["list"][timestamp]["main"].temp_min,
-          humidity: forecast["list"][timestamp]["main"].humidity,
+          currentTemp: forecast.list[timestamp].main.temp,
+          feelsLike: forecast.list[timestamp].main.feels_like,
+          highTemp: forecast.list[timestamp].main.temp_max,
+          lowTemp: forecast.list[timestamp].main.temp_min,
+          humidity: forecast.list[timestamp].main.humidity,
           day: arrayOfDays[dayOfWeek],
+          conditions: forecast.list[timestamp].weather[0].main,
           key: timestamp,
         };
       });
@@ -183,7 +154,7 @@ export default function Home() {
               {/* Current Forecast */}
               <div className="current-forecast">
                 <div className="forecast-title">Current Forecast</div>
-                <div className="forecast-item">
+                <div className="current-forecast-item">
                   <div className="forecast-value">
                     Current Temp: {currentForecast.currentTemp}&deg;
                     {units === "imperial" ? "F" : "C"}
@@ -206,9 +177,9 @@ export default function Home() {
                   {twelveHourForecast.map((day) => {
                     return (
                       <div className="forecast-item" key={day.key}>
-                        <div>{day.time}</div>
+                        <div className='forecast-time'>{day.time}</div>
                         <div>
-                          Temp: {Math.floor(day.temp)}&deg;
+                          {Math.floor(day.temp)}&deg;
                           {units === "imperial" ? "F" : "C"}
                         </div>
                       </div>
@@ -224,7 +195,7 @@ export default function Home() {
                   {fiveDayForecast.map((day) => {
                     return (
                       <div className="forecast-item" key={day.key}>
-                        <div className="forecast-value">{day.day}</div>
+                        <div className="forecast-day">{day.day}</div>
                         <div className="forecast-value">
                           Temp: {Math.floor(day.currentTemp)}&deg;
                           {units === "imperial" ? "F" : "C"}
@@ -244,6 +215,7 @@ export default function Home() {
                         <div className="forecast-value">
                           Humidity: {Math.floor(day.humidity)}%
                         </div>
+                        <div className="forecast-value">{day.conditions}</div>
                       </div>
                     );
                   })}
