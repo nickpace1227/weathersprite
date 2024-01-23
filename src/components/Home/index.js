@@ -52,6 +52,8 @@ export default function Home() {
         highTemp: Math.floor(weather.main.temp_max),
         lowTemp: Math.floor(weather.main.temp_min),
         humidity: Math.floor(weather.main.humidity),
+        conditions: weather.weather[0].icon,
+        alt: weather.weather[0].icon,
       };
 
       const twelveHourForecast = ["0", "1", "2", "3"].map((timestamp) => {
@@ -60,7 +62,8 @@ export default function Home() {
         return {
           temp: forecast.list[timestamp].main.temp,
           time: (hourOfDay % 12 || 12) + (hourOfDay < 12 ? " AM" : " PM"),
-          conditions: forecast.list[timestamp].weather.main,
+          conditions: forecast.list[timestamp].weather[0].icon,
+          alt: forecast.list[timestamp].weather[0].main,
           key: timestamp,
         };
       });
@@ -84,7 +87,8 @@ export default function Home() {
           lowTemp: forecast.list[timestamp].main.temp_min,
           humidity: forecast.list[timestamp].main.humidity,
           day: arrayOfDays[dayOfWeek],
-          conditions: forecast.list[timestamp].weather[0].main,
+          conditions: forecast.list[timestamp].weather[0].icon,
+          alt: forecast.list[timestamp].weather[0].main,
           key: timestamp,
         };
       });
@@ -93,6 +97,7 @@ export default function Home() {
       setCurrentForecast(currentForecast);
       setTwelveHourForecast(twelveHourForecast);
       setFiveDayForecast(fiveDayForecast);
+      console.log(weather);
       console.log(forecast);
     } catch (err) {
       setError(true);
@@ -155,9 +160,12 @@ export default function Home() {
               <div className="current-forecast">
                 <div className="forecast-title">Current Forecast</div>
                 <div className="current-forecast-item">
+                  <div className="temp-and-conditions">
+                  <img src={`https://openweathermap.org/img/wn/${currentForecast.conditions}.png`} alt={currentForecast.alt} />
                   <div className="forecast-value">
-                    Current Temp: {currentForecast.currentTemp}&deg;
+                    {currentForecast.currentTemp}&deg;
                     {units === "imperial" ? "F" : "C"}
+                  </div>
                   </div>
                   <div className="forecast-value">
                     Feels Like: {currentForecast.feelsLike}&deg;
@@ -174,13 +182,16 @@ export default function Home() {
               <div className="twelve-hour-forecast">
                 <div className="forecast-title">Twelve Hour Forecast</div>
                 <div className="forecast-container">
-                  {twelveHourForecast.map((day) => {
+                  {twelveHourForecast.map((hour) => {
                     return (
-                      <div className="forecast-item" key={day.key}>
-                        <div className='forecast-time'>{day.time}</div>
+                      <div className="forecast-item" key={hour.key}>
+                        <div className='forecast-time'>{hour.time}</div>
+                        <div className="temp-and-conditions">
+                        <img src={`https://openweathermap.org/img/wn/${hour.conditions}.png`} alt={hour.alt} />
                         <div>
-                          {Math.floor(day.temp)}&deg;
+                          {Math.floor(hour.temp)}&deg;
                           {units === "imperial" ? "F" : "C"}
+                        </div>
                         </div>
                       </div>
                     );
@@ -196,10 +207,14 @@ export default function Home() {
                     return (
                       <div className="forecast-item" key={day.key}>
                         <div className="forecast-day">{day.day}</div>
-                        <div className="forecast-value">
-                          Temp: {Math.floor(day.currentTemp)}&deg;
+                        <div className="temp-and-conditions">
+                        <img src={`https://openweathermap.org/img/wn/${day.conditions}.png`} alt={day.alt} />
+                        <div>
+                          {Math.floor(day.currentTemp)}&deg;
                           {units === "imperial" ? "F" : "C"}
                         </div>
+                        </div>
+                       
                         <div className="forecast-value">
                           Feels Like: {Math.floor(day.feelsLike)}&deg;
                           {units === "imperial" ? "F" : "C"}
@@ -215,7 +230,6 @@ export default function Home() {
                         <div className="forecast-value">
                           Humidity: {Math.floor(day.humidity)}%
                         </div>
-                        <div className="forecast-value">{day.conditions}</div>
                       </div>
                     );
                   })}
