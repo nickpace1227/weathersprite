@@ -25,6 +25,7 @@ export default function Home() {
   const [currentForecast, setCurrentForecast] = useState([]);
   const [twelveHourForecast, setTwelveHourForecast] = useState([]);
   const [fiveDayForecast, setFiveDayForecast] = useState([]);
+  const [backgroundColor, setBackgroundColor] = useState("sunny");
 
   const createForecast = async () => {
     if (!cityName) {
@@ -52,7 +53,8 @@ export default function Home() {
         highTemp: Math.floor(weather.main.temp_max),
         lowTemp: Math.floor(weather.main.temp_min),
         humidity: Math.floor(weather.main.humidity),
-        conditions: weather.weather[0].icon,
+        conditions: weather.weather[0].main,
+        icon: weather.weather[0].icon,
         alt: weather.weather[0].icon,
       };
 
@@ -62,6 +64,7 @@ export default function Home() {
         return {
           temp: forecast.list[timestamp].main.temp,
           time: (hourOfDay % 12 || 12) + (hourOfDay < 12 ? " AM" : " PM"),
+          icon: forecast.list[timestamp].weather[0].icon,
           conditions: forecast.list[timestamp].weather[0].icon,
           alt: forecast.list[timestamp].weather[0].main,
           key: timestamp,
@@ -87,11 +90,13 @@ export default function Home() {
           lowTemp: forecast.list[timestamp].main.temp_min,
           humidity: forecast.list[timestamp].main.humidity,
           day: arrayOfDays[dayOfWeek],
-          conditions: forecast.list[timestamp].weather[0].icon,
+          conditions: forecast.list[timestamp].weather[0].main,
+          icon: forecast.list[timestamp].weather[0].icon,
           alt: forecast.list[timestamp].weather[0].main,
           key: timestamp,
         };
       });
+      setBackgroundColor(currentForecast.conditions)
       setHasSearched(true);
       setError(false);
       setCurrentForecast(currentForecast);
@@ -107,8 +112,9 @@ export default function Home() {
 
   return (
     <Wrapper>
+      <div className={backgroundColor}>
       {/* Begin Search */}
-
+        <div className="site-title">WeatherSpout</div>
       <div className="search">
         <input
           className={`input ${cityName ? "" : "invalid"}`}
@@ -117,7 +123,7 @@ export default function Home() {
           onChange={(e) => setCityName(e.target.value)}
         />
         <select
-          className="input"
+          className="search-options"
           placeholder="state"
           onChange={(e) => setStateCode(e.target.value)}
         >
@@ -130,12 +136,12 @@ export default function Home() {
             );
           })}
         </select>
-        <select className="input" onChange={(e) => setUnits(e.target.value)}>
+        <select className="search-options" onChange={(e) => setUnits(e.target.value)}>
           <option value="imperial">Imperial</option>
           <option value="metric">Metric</option>
         </select>
         <button
-          className="input"
+          className="button"
           type="button"
           onClick={(e) => {
             createForecast(e);
@@ -161,7 +167,7 @@ export default function Home() {
                 <div className="forecast-title">Current Forecast</div>
                 <div className="current-forecast-item">
                   <div className="temp-and-conditions">
-                  <img src={`https://openweathermap.org/img/wn/${currentForecast.conditions}.png`} alt={currentForecast.alt} />
+                  <img src={`https://openweathermap.org/img/wn/${currentForecast.icon}.png`} alt={currentForecast.alt} />
                   <div className="forecast-value">
                     {currentForecast.currentTemp}&deg;
                     {units === "imperial" ? "F" : "C"}
@@ -187,7 +193,7 @@ export default function Home() {
                       <div className="forecast-item" key={hour.key}>
                         <div className='forecast-time'>{hour.time}</div>
                         <div className="temp-and-conditions">
-                        <img src={`https://openweathermap.org/img/wn/${hour.conditions}.png`} alt={hour.alt} />
+                        <img src={`https://openweathermap.org/img/wn/${hour.icon}.png`} alt={hour.alt} />
                         <div>
                           {Math.floor(hour.temp)}&deg;
                           {units === "imperial" ? "F" : "C"}
@@ -208,7 +214,7 @@ export default function Home() {
                       <div className="forecast-item" key={day.key}>
                         <div className="forecast-day">{day.day}</div>
                         <div className="temp-and-conditions">
-                        <img src={`https://openweathermap.org/img/wn/${day.conditions}.png`} alt={day.alt} />
+                        <img src={`https://openweathermap.org/img/wn/${day.icon}.png`} alt={day.alt} />
                         <div>
                           {Math.floor(day.currentTemp)}&deg;
                           {units === "imperial" ? "F" : "C"}
@@ -247,6 +253,7 @@ export default function Home() {
           )}
         </div>
       )}
+      </div>
     </Wrapper>
   );
 }

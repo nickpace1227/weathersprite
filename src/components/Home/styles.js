@@ -4,11 +4,64 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-height: 100vh;
+  background-attachment: fixed;
+
+  .Clouds,  {
+    background-image: linear-gradient(gray, white);
+    min-height: 100vh;
+    background-attachment: fixed;
+    min-width: 100vw;
+  }
+
+  .Clear {
+    background-image: linear-gradient(#03b1fc, white);
+    min-height: 100vh;
+    background-attachment: fixed;
+    min-width: 100vw;
+}
+
+  .Rain, Thunderstorm, Drizzle, Snow {
+    background-image: linear-gradient(#272a2b, white);
+    min-height: 100vh;
+    background-attachment: fixed;
+    min-width: 100vw;
+  }
+
+  .Mist, Smoke, Haze, Dust, Fog, Sand, Dust, Ash, Squall, Tornado {
+    background-image: linear-gradient(red, white);
+    min-height: 100vh;
+    background-attachment: fixed;
+    min-width: 100vw;
+  }
+
+  .site-title {
+    font-family: "LemonRegular";
+    margin: 5px;
+    font-size: 30px;
+    text-align: center;
+    text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;
+  }
 
   .input {
     margin: 2px;
     border-radius: 8px;
     padding: 8px;
+    width: 140px;
+  }
+
+  .search-options {
+    margin: 2px;
+    border-raidus: 8px;
+    padding: 8px;
+    width: 160px;
+  }
+
+  .button {
+    margin: 2px;
+    border-radius: 8px;
+    padding 8px;
+    width: 80px;
   }
 
   .invalid {
