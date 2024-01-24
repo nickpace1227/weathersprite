@@ -25,7 +25,16 @@ export default function Home() {
   const [currentForecast, setCurrentForecast] = useState([]);
   const [twelveHourForecast, setTwelveHourForecast] = useState([]);
   const [fiveDayForecast, setFiveDayForecast] = useState([]);
-  const [backgroundColor, setBackgroundColor] = useState("sunny");
+  const [backgroundColor, setBackgroundColor] = useState("");
+
+  const handleUnitToggle = () => {
+    if (units === "imperial") {
+      setUnits("metric");
+    }
+    if (units === "metric") {
+      setUnits("imperial");
+    }
+  };
 
   const createForecast = async () => {
     if (!cityName) {
@@ -96,14 +105,12 @@ export default function Home() {
           key: timestamp,
         };
       });
-      setBackgroundColor(currentForecast.conditions)
+      setBackgroundColor(currentForecast.conditions);
       setHasSearched(true);
       setError(false);
       setCurrentForecast(currentForecast);
       setTwelveHourForecast(twelveHourForecast);
       setFiveDayForecast(fiveDayForecast);
-      console.log(weather);
-      console.log(forecast);
     } catch (err) {
       setError(true);
       console.log(err);
@@ -113,146 +120,160 @@ export default function Home() {
   return (
     <Wrapper>
       <div className={backgroundColor}>
-      {/* Begin Search */}
+        {/* Begin Search */}
         <div className="site-title">WeatherSpout</div>
-      <div className="search">
-        <input
-          className={`input ${cityName ? "" : "invalid"}`}
-          type="text"
-          placeholder="City"
-          onChange={(e) => setCityName(e.target.value)}
-        />
-        <select
-          className="search-options"
-          placeholder="state"
-          onChange={(e) => setStateCode(e.target.value)}
-        >
-          <option value="">State</option>
-          {usStates.map((state) => {
-            return (
-              <option key={state} value={state}>
-                {state}
-              </option>
-            );
-          })}
-        </select>
-        <select className="search-options" onChange={(e) => setUnits(e.target.value)}>
-          <option value="imperial">Imperial</option>
-          <option value="metric">Metric</option>
-        </select>
-        <button
-          className="button"
-          type="button"
-          onClick={(e) => {
-            createForecast(e);
-          }}
-        >
-          Search
-        </button>
-      </div>
-
-      {/* End Search */}
-
-      {error ? (
-        <div className="error-div">
-          <div>Something went wrong.</div>
-          <div>Try searching again.</div>
+        <div className="search">
+          <input
+            className={`input ${cityName ? "" : "invalid"}`}
+            type="text"
+            placeholder="City"
+            onChange={(e) => setCityName(e.target.value)}
+          />
+          <select
+            className="search-options"
+            placeholder="state"
+            onChange={(e) => setStateCode(e.target.value)}
+          >
+            <option value="">State</option>
+            {usStates.map((state) => {
+              return (
+                <option key={state} value={state}>
+                  {state}
+                </option>
+              );
+            })}
+          </select>
+          <div className="unit-and-search">
+            <input
+              type="checkbox"
+              id="check"
+              className="toggle"
+              onClick={handleUnitToggle}
+            />
+            <label for="check" />
+            <button
+              className="button"
+              type="button"
+              onClick={(e) => {
+                createForecast(e);
+              }}
+            >
+              Search
+            </button>
+          </div>
         </div>
-      ) : (
-        <div>
-          {hasSearched ? (
-            <div className="forecast">
-              {/* Current Forecast */}
-              <div className="current-forecast">
-                <div className="forecast-title">Current Forecast</div>
-                <div className="current-forecast-item">
-                  <div className="temp-and-conditions">
-                  <img src={`https://openweathermap.org/img/wn/${currentForecast.icon}.png`} alt={currentForecast.alt} />
-                  <div className="forecast-value">
-                    {currentForecast.currentTemp}&deg;
-                    {units === "imperial" ? "F" : "C"}
-                  </div>
-                  </div>
-                  <div className="forecast-value">
-                    Feels Like: {currentForecast.feelsLike}&deg;
-                    {units === "imperial" ? "F" : "C"}
-                  </div>
-                  <div className="forecast-value">
-                    Humidity: {currentForecast.humidity}%
-                  </div>
-                </div>
-              </div>
 
-              {/* Twelve Hour Forecast */}
+        {/* End Search */}
 
-              <div className="twelve-hour-forecast">
-                <div className="forecast-title">Twelve Hour Forecast</div>
-                <div className="forecast-container">
-                  {twelveHourForecast.map((hour) => {
-                    return (
-                      <div className="forecast-item" key={hour.key}>
-                        <div className='forecast-time'>{hour.time}</div>
-                        <div className="temp-and-conditions">
-                        <img src={`https://openweathermap.org/img/wn/${hour.icon}.png`} alt={hour.alt} />
-                        <div>
-                          {Math.floor(hour.temp)}&deg;
-                          {units === "imperial" ? "F" : "C"}
-                        </div>
-                        </div>
+        {error ? (
+          <div className="error-div">
+            <div>Something went wrong.</div>
+            <div>Try searching again.</div>
+          </div>
+        ) : (
+          <div className="page-content">
+            {hasSearched ? (
+              <div className="forecast">
+                {/* Current Forecast */}
+                <div className="current-forecast">
+                  <div className="forecast-title">Current Forecast</div>
+                  <div className="current-forecast-item">
+                    <div className="temp-and-conditions">
+                      <img
+                        src={`https://openweathermap.org/img/wn/${currentForecast.icon}.png`}
+                        alt={currentForecast.alt}
+                      />
+                      <div className="forecast-value">
+                        {currentForecast.currentTemp}&deg;
+                        {units === "imperial" ? "F" : "C"}
                       </div>
-                    );
-                  })}
+                    </div>
+                    <div className="forecast-value">
+                      Feels Like: {currentForecast.feelsLike}&deg;
+                      {units === "imperial" ? "F" : "C"}
+                    </div>
+                    <div className="forecast-value">
+                      Humidity: {currentForecast.humidity}%
+                    </div>
+                  </div>
                 </div>
-              </div>
 
-              {/* Five Day Forecast */}
-              <div className="five-day-forecast">
-                <div className="forecast-title">Five Day Forecast</div>
-                <div className="forecast-container">
-                  {fiveDayForecast.map((day) => {
-                    return (
-                      <div className="forecast-item" key={day.key}>
-                        <div className="forecast-day">{day.day}</div>
-                        <div className="temp-and-conditions">
-                        <img src={`https://openweathermap.org/img/wn/${day.icon}.png`} alt={day.alt} />
-                        <div>
-                          {Math.floor(day.currentTemp)}&deg;
-                          {units === "imperial" ? "F" : "C"}
+                {/* Twelve Hour Forecast */}
+
+                <div className="twelve-hour-forecast">
+                  <div className="forecast-title">Twelve Hour Forecast</div>
+                  <div className="forecast-container">
+                    {twelveHourForecast.map((hour) => {
+                      return (
+                        <div className="forecast-item" key={hour.key}>
+                          <div className="forecast-time">{hour.time}</div>
+                          <div className="temp-and-conditions">
+                            <img
+                              src={`https://openweathermap.org/img/wn/${hour.icon}.png`}
+                              alt={hour.alt}
+                            />
+                            <div>
+                              {Math.floor(hour.temp)}&deg;
+                              {units === "imperial" ? "F" : "C"}
+                            </div>
+                          </div>
                         </div>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Five Day Forecast */}
+                <div className="five-day-forecast">
+                  <div className="forecast-title">Five Day Forecast</div>
+                  <div className="forecast-container">
+                    {fiveDayForecast.map((day) => {
+                      return (
+                        <div className="forecast-item" key={day.key}>
+                          <div className="forecast-day">{day.day}</div>
+                          <div className="temp-and-conditions">
+                            <img
+                              src={`https://openweathermap.org/img/wn/${day.icon}.png`}
+                              alt={day.alt}
+                            />
+                            <div>
+                              {Math.floor(day.currentTemp)}&deg;
+                              {units === "imperial" ? "F" : "C"}
+                            </div>
+                          </div>
+
+                          <div className="forecast-value">
+                            Feels Like: {Math.floor(day.feelsLike)}&deg;
+                            {units === "imperial" ? "F" : "C"}
+                          </div>
+                          <div className="forecast-value">
+                            High: {Math.floor(day.highTemp)}&deg;
+                            {units === "imperial" ? "F" : "C"}
+                          </div>
+                          <div className="forecast-value">
+                            Low: {Math.floor(day.lowTemp)}&deg;
+                            {units === "imperial" ? "F" : "C"}
+                          </div>
+                          <div className="forecast-value">
+                            Humidity: {Math.floor(day.humidity)}%
+                          </div>
                         </div>
-                       
-                        <div className="forecast-value">
-                          Feels Like: {Math.floor(day.feelsLike)}&deg;
-                          {units === "imperial" ? "F" : "C"}
-                        </div>
-                        <div className="forecast-value">
-                          High: {Math.floor(day.highTemp)}&deg;
-                          {units === "imperial" ? "F" : "C"}
-                        </div>
-                        <div className="forecast-value">
-                          Low: {Math.floor(day.lowTemp)}&deg;
-                          {units === "imperial" ? "F" : "C"}
-                        </div>
-                        <div className="forecast-value">
-                          Humidity: {Math.floor(day.humidity)}%
-                        </div>
-                      </div>
-                    );
-                  })}
+                      );
+                    })}
+                  </div>
                 </div>
               </div>
-            </div>
-          ) : (
-            <div className="landing-container">
-              <div className="landing-message">Welcome to WeatherSpout!</div>
-              <div>
-                Fill out the above form and see what your local weather looks
-                like in seconds!
+            ) : (
+              <div className="landing-info">
+                <div>Welcome to WeatherSpout!</div>
+                <div>
+                  Fill out the above form and see what your local weather looks
+                  like in seconds!
+                </div>
               </div>
-            </div>
-          )}
-        </div>
-      )}
+            )}
+          </div>
+        )}
       </div>
     </Wrapper>
   );

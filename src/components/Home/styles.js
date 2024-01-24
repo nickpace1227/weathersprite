@@ -130,6 +130,68 @@ export const Wrapper = styled.div`
     align-items: center;
   }
 
+  .page-content {
+    display: flex;
+    justify-content: center;
+  }
+
+  label::before {
+    content: "ass";
+  }
+
+  label::after {
+    content: "fuck";
+  }
+
+  input[type="checkbox"].toggle {
+    opacity: 0;
+    position: absolute;
+    left: -9000px;
+    top: -9000px;
+  }
+
+  input[type="checkbox"].toggle + label {
+    position: relative;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  input[type="checkbox"].toggle + label::before {
+    content: "";
+    width: 74px;
+    height: 36px;
+    background-color: #DDD;
+    border-radius: 24px;
+    margin: 2px;
+  }
+
+  input[type="checkbox"].toggle + label::after {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    content: "F";
+    left: 5px;
+    width: 34px;
+    height: 34px;
+    background-color: grey;
+    border-radius: 24px;
+    margin: 0px;
+    position: absolute;
+    transition: transform 150ms ease-in-out;
+  }
+
+  input[type="checkbox"].toggle:focus + label::before {
+    outline: 1px solid black;
+  }
+
+  input[type="checkbox"].toggle:checked + label::after {
+    transform: translateX(100%);
+    background-color: grey;
+    content: "C";
+  }
+
   @media (min-width: 1200px) {
     .search {
       display: flex;
@@ -169,6 +231,11 @@ export const Wrapper = styled.div`
 
     .landing-container {
       display: flex;
+      justify-content: center;
+    }
+
+    .landing-info {
+      display: flex;
       flex-direction: column;
       align-items: center;
       margin: 25px;
@@ -176,7 +243,12 @@ export const Wrapper = styled.div`
       padding: 8px;
       border-radius: 8px;
       background-color: grey;
+      width: 400px;
     }
+  }
+
+  .unit-and-search {
+    display: flex;
   }
 
   @media (max-width: 1200px) {
