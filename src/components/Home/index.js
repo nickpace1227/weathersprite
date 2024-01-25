@@ -25,7 +25,7 @@ export default function Home() {
   const [currentForecast, setCurrentForecast] = useState([]);
   const [twelveHourForecast, setTwelveHourForecast] = useState([]);
   const [fiveDayForecast, setFiveDayForecast] = useState([]);
-  const [backgroundColor, setBackgroundColor] = useState("");
+  const [backgroundColor, setBackgroundColor] = useState("Clear");
 
   const handleUnitToggle = () => {
     if (units === "imperial") {
