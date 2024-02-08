@@ -266,7 +266,7 @@ export default function Home() {
             ) : (
               <div className="landing-container">
                 <div>Welcome to WeatherSpout!</div>
-                <div>
+                <div className="landing-info">
                   Fill out the above form and see what your local weather looks
                   like in seconds!
                 </div>

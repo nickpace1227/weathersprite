@@ -192,6 +192,23 @@ export const Wrapper = styled.div`
     content: "C";
   }
 
+  .landing-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 25px;
+    border: 4px solid black;
+    padding: 8px;
+    border-radius: 8px;
+    background-color: grey;
+    width: 200px;
+    text-align: center;
+  }
+
+  .landing-info {
+    margin: 8px;
+  }
+
   @media (min-width: 1200px) {
     .search {
       display: flex;
@@ -227,23 +244,6 @@ export const Wrapper = styled.div`
       border-radius: 8px;
       border: 4px solid black;
       background-color: grey;
-    }
-
-    .landing-container {
-      display: flex;
-      justify-content: center;
-    }
-
-    .landing-info {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin: 25px;
-      border: 4px solid black;
-      padding: 8px;
-      border-radius: 8px;
-      background-color: grey;
-      width: 400px;
     }
   }
 
@@ -287,18 +287,6 @@ export const Wrapper = styled.div`
       padding: 8px;
       border-radius: 8px;
       border: 4px solid black;
-      background-color: grey;
-      width: 200px;
-    }
-
-    .landing-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin: 25px;
-      border: 4px solid black;
-      padding: 8px;
-      border-radius: 8px;
       background-color: grey;
       width: 200px;
     }
