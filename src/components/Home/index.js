@@ -64,7 +64,7 @@ export default function Home() {
         humidity: Math.floor(weather.main.humidity),
         conditions: weather.weather[0].main,
         icon: weather.weather[0].icon,
-        alt: weather.weather[0].icon,
+        alt: weather.weather[0].main,
       };
 
       const twelveHourForecast = ["0", "1", "2", "3"].map((timestamp) => {
@@ -167,8 +167,10 @@ export default function Home() {
 
         {error ? (
           <div className="error-div">
-            <div>Something went wrong.</div>
-            <div>Try searching again.</div>
+            <div className="error-message">
+              <div>Something went wrong.</div>
+              <div>Try searching again.</div>
+            </div>
           </div>
         ) : (
           <div className="page-content">
@@ -180,6 +182,7 @@ export default function Home() {
                   <div className="current-forecast-item">
                     <div className="temp-and-conditions">
                       <img
+                        title={currentForecast.alt}
                         src={`https://openweathermap.org/img/wn/${currentForecast.icon}.png`}
                         alt={currentForecast.alt}
                       />
@@ -209,6 +212,7 @@ export default function Home() {
                           <div className="forecast-time">{hour.time}</div>
                           <div className="temp-and-conditions">
                             <img
+                              title={hour.alt}
                               src={`https://openweathermap.org/img/wn/${hour.icon}.png`}
                               alt={hour.alt}
                             />
@@ -233,6 +237,7 @@ export default function Home() {
                           <div className="forecast-day">{day.day}</div>
                           <div className="temp-and-conditions">
                             <img
+                              title={day.alt}
                               src={`https://openweathermap.org/img/wn/${day.icon}.png`}
                               alt={day.alt}
                             />

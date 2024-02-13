@@ -8,14 +8,14 @@ export const Wrapper = styled.div`
   background-attachment: fixed;
 
   .Clouds,  {
-    background-image: linear-gradient(gray, white);
+    background-image: linear-gradient(#bac9a9, #a7dbd8);
     min-height: 100vh;
     background-attachment: fixed;
     min-width: 100vw;
   }
 
   .Clear {
-    background-image: linear-gradient(#03b1fc, white);
+    background-image: linear-gradient(#69d2e7, white);
     min-height: 100vh;
     background-attachment: fixed;
     min-width: 100vw;
@@ -29,7 +29,7 @@ export const Wrapper = styled.div`
   }
 
   .Mist, Smoke, Haze, Dust, Fog, Sand, Dust, Ash, Squall, Tornado {
-    background-image: linear-gradient(red, white);
+    background-image: linear-gradient(#c74066, white);
     min-height: 100vh;
     background-attachment: fixed;
     min-width: 100vw;
@@ -37,28 +37,29 @@ export const Wrapper = styled.div`
 
   .site-title {
     font-family: "LemonRegular";
-    margin: 5px;
+    margin: 16px;
+    margin-top: 24px;
     font-size: 30px;
     text-align: center;
     text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;
   }
 
   .input {
-    margin: 2px;
+    margin: 4px;
     border-radius: 8px;
     padding: 8px;
     width: 140px;
   }
 
   .search-options {
-    margin: 2px;
+    margin: 4px;
     border-raidus: 8px;
     padding: 8px;
     width: 160px;
   }
 
   .button {
-    margin: 2px;
+    margin: 4px;
     border-radius: 8px;
     padding 8px;
     width: 80px;
@@ -69,12 +70,20 @@ export const Wrapper = styled.div`
   }
 
   .error-div {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .error-message {
+    display: flex;
+    flex-direction: column;
     margin: 16px;
     width: 200px;
     padding: 8px;
     border-radius: 8px;
     border: 4px solid black;
-    background-color: grey;
+    background-color: #e0e4cc;
   }
 
   .forecast {
@@ -130,6 +139,10 @@ export const Wrapper = styled.div`
     align-items: center;
   }
 
+  .weather-image:hover {
+    
+  }
+
   .page-content {
     display: flex;
     justify-content: center;
@@ -175,7 +188,7 @@ export const Wrapper = styled.div`
     left: 5px;
     width: 34px;
     height: 34px;
-    background-color: grey;
+    background-color: #005bc5;
     border-radius: 24px;
     margin: 0px;
     position: absolute;
@@ -188,7 +201,7 @@ export const Wrapper = styled.div`
 
   input[type="checkbox"].toggle:checked + label::after {
     transform: translateX(100%);
-    background-color: grey;
+    background-color: #fa6900;
     content: "C";
   }
 
@@ -197,10 +210,10 @@ export const Wrapper = styled.div`
     flex-direction: column;
     align-items: center;
     margin: 25px;
-    border: 4px solid black;
+    border: 2px solid black;
     padding: 8px;
     border-radius: 8px;
-    background-color: grey;
+    background-color: #e0e4cc;
     width: 200px;
     text-align: center;
   }
@@ -219,8 +232,8 @@ export const Wrapper = styled.div`
       margin: 16px;
       padding: 8px;
       border-radius: 8px;
-      border: 4px solid black;
-      background-color: grey;
+      border: 2px solid black;
+      background-color: #e0e4cc;
       width: 200px;
     }
 
@@ -228,8 +241,8 @@ export const Wrapper = styled.div`
       margin: 16px;
       padding: 8px;
       border-radius: 8px;
-      border: 4px solid black;
-      background-color: grey;
+      border: 2px solid black;
+      background-color: #e0e4cc;
       width: 475px;
     }
 
@@ -242,8 +255,8 @@ export const Wrapper = styled.div`
       margin: 16px;
       padding: 8px;
       border-radius: 8px;
-      border: 4px solid black;
-      background-color: grey;
+      border: 2px solid black;
+      background-color: #e0e4cc;
     }
   }
 
@@ -262,8 +275,8 @@ export const Wrapper = styled.div`
       margin: 16px;
       padding: 8px;
       border-radius: 8px;
-      border: 4px solid black;
-      background-color: grey;
+      border: 2px solid black;
+      background-color: #e0e4cc;
       width: 200px;
     }
 
@@ -271,8 +284,8 @@ export const Wrapper = styled.div`
       margin: 16px;
       padding: 8px;
       border-radius: 8px;
-      border: 4px solid black;
-      background-color: grey;
+      border: 2px solid black;
+      background-color: #e0e4cc;
       width: 200px;
     }
 
@@ -286,8 +299,8 @@ export const Wrapper = styled.div`
       margin: 16px;
       padding: 8px;
       border-radius: 8px;
-      border: 4px solid black;
-      background-color: grey;
+      border: 2px solid black;
+      background-color: #e0e4cc;
       width: 200px;
     }
   }
