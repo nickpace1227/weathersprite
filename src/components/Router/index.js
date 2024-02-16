@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { GlobalStyles } from "../Styles/GlobalStyles";
 import Home from "../Home";
 
-export default function Weatherspout() {
+export default function Weathersprite() {
   return (
     <BrowserRouter>
       <GlobalStyles>

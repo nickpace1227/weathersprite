@@ -8,7 +8,7 @@ export const Wrapper = styled.div`
   background-attachment: fixed;
 
   .Clouds,  {
-    background-image: linear-gradient(#bac9a9, #a7dbd8);
+    background-image: linear-gradient(#272a2b, #a7dbd8);
     min-height: 100vh;
     background-attachment: fixed;
     min-width: 100vw;

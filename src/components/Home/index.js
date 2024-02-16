@@ -121,7 +121,7 @@ export default function Home() {
     <Wrapper>
       <div className={backgroundColor}>
         {/* Begin Search */}
-        <div className="site-title">WeatherSpout</div>
+        <div className="site-title">WeatherSprite</div>
         <div className="search">
           <input
             className={`input ${cityName ? "" : "invalid"}`}
@@ -270,7 +270,7 @@ export default function Home() {
               </div>
             ) : (
               <div className="landing-container">
-                <div>Welcome to WeatherSpout!</div>
+                <div>Welcome to WeatherSprite!</div>
                 <div className="landing-info">
                   Fill out the above form and see what your local weather looks
                   like in seconds!
