@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import LemonRegular from "../../assets/fonts/LemonRegular.ttf";
-import CabinRegular from "../../assets/fonts/CabinRegular.ttf";
+import LemonRegular from "../../Assets/fonts/LemonRegular.ttf";
+import CabinRegular from "../../Assets/fonts/CabinRegular.ttf";
 
 export const GlobalStyles = styled.div`
   @font-face {
