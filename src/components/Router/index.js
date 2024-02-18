@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { GlobalStyles } from "../Styles/GlobalStyles";
-import Home from "../Home";
+import { GlobalStyles } from "../styles/globalstyles";
+import Home from "../home";
 
 export default function Weathersprite() {
   return (
