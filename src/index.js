@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import Weathersprite from "../src/components/router/";
+import Weathersprite from "./components/Router";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
