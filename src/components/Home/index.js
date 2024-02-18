@@ -43,7 +43,7 @@ export default function Home() {
     try {
       console.log("fetching coords");
       const coords = await fetch(
-        `http://api.openweathermap.org/geo/1.0/direct?q=${cityName},${stateCode},US&limit=5&appid=3629692cef6e7a55af67ced0043c6264`
+        `https://api.openweathermap.org/geo/1.0/direct?q=${cityName},${stateCode},US&limit=5&appid=3629692cef6e7a55af67ced0043c6264`
       ).then(async (response) => await response.json());
       console.log("fetched coords");
 
